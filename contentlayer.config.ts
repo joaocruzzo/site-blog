@@ -1,5 +1,5 @@
 // contentlayer.config.ts
-import { defineDocumentType, defineNestedType, makeSource } from 'contentlayer/source-files'
+import { defineDocumentType, defineNestedType, makeSource } from 'contentlayer2/source-files'
 
 const Author = defineNestedType(() => ({
   name: 'Author',
