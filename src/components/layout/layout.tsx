@@ -3,6 +3,8 @@ import { Inter, PT_Sans_Caption } from "next/font/google"
 import { Footer } from "./footer"
 import { Header } from "./header"
 
+import { CallToAction } from "@/templates/landing-page/sections"
+
 type LayoutProps = {
     children: React.ReactNode
 }
@@ -28,6 +30,7 @@ export const Layout = ({ children }: LayoutProps) => {
                 {children}
             </main>
 
+            <CallToAction />
             <Footer />
         </div>
     )
