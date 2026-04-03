@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { LandingPage } from "@/templates/landing-page";
 
 export const metadata: Metadata = {
@@ -15,8 +15,8 @@ export const metadata: Metadata = {
         images: [
             {
                 url: "https://site-blog-livid.vercel.app/og-image.jpg",
-                width: 116,
-                height: 33,
+                width: 800,
+                height: 600,
                 alt: "Site.Set"
             }
         ]
