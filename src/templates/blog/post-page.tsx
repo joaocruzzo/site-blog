@@ -9,15 +9,13 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 
-import { useShare } from "@/hooks/use-share"
-
 import { Post } from "contentlayer/generated"
 
 import { Avatar } from "@/components/avatar"
-import { Button } from "@/components/ui/button"
 import { Markdown } from "@/components/markdown"
+import { PostShare, PostShareMobile } from "./components/post-share"
 
-export type PostPageProps ={
+export type PostPageProps = {
     post: Post
 }
 
@@ -26,56 +24,38 @@ export const PostPage = ({ post }: PostPageProps) => {
 
     const postUrl = `https://site.set/blog/${post.slug}`
 
-    const { shareButtons } = useShare({
-        url: postUrl,
-        title: post.title,
-        text: post.description
-
-    })
-
     return (
         <main className="text-gray-100 py-20 mt-4">
             <div className="container space-y-12 px-4 md:px-8">
                 <div className="flex items-center gap-3">
                     <div className="flex-1 min-w-0">
                         <Breadcrumb>
-                        <BreadcrumbList className="flex items-center flex-nowrap gap-1">
-                            <BreadcrumbItem className="shrink-0">
-                                <BreadcrumbLink asChild className="text-action-sm">
-                                    <Link href="/blog">
-                                        Blog
-                                    </Link>
-                                </BreadcrumbLink>
-                            </BreadcrumbItem>
+                            <BreadcrumbList className="flex items-center flex-nowrap gap-1">
+                                <BreadcrumbItem className="shrink-0">
+                                    <BreadcrumbLink asChild className="text-action-sm">
+                                        <Link href="/blog">
+                                            Blog
+                                        </Link>
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
 
-                            <BreadcrumbSeparator />
+                                <BreadcrumbSeparator />
 
-                            <span className="text-blue-200 text-action-sm truncate">
-                                {post?.title}
-                            </span>
-                            <BreadcrumbItem>
-
-                            </BreadcrumbItem>
-                        </BreadcrumbList>
-                    </Breadcrumb>
-                    </div>
-
-                    <div className="flex md:hidden gap-2 shrink-0">
-                        {shareButtons.map((provider) => (
-                            <Button
-                                key={provider.provider}
-                                variant="outline"
-                                className="w-fit md:w-full h-10 justify-start gap-2 p-3"
-                                onClick={() => provider.action()}
-                            >
-                                {provider.icon}
-
-                                <span className="hidden md:block">
-                                    {provider.name}
+                                <span className="text-blue-200 text-action-sm truncate">
+                                    {post?.title}
                                 </span>
-                            </Button>
-                        ))}
+                                <BreadcrumbItem>
+
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
                     </div>
+
+                    <PostShareMobile
+                        url={postUrl}
+                        title={post.title}
+                        description={post.description}
+                    />
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 lg:gap-12">
@@ -121,30 +101,11 @@ export const PostPage = ({ post }: PostPageProps) => {
                         </div>
                     </article>
 
-                    <aside className="space-y-6">
-                        <div className="rounded-lg bg-gray-700">
-                            <h2 className="hidden md:block mb-4 text-heading-sm text-gray-100">
-                                Compartilhar
-                            </h2>
-
-                            <div className="hidden md:flex justify-between md:flex-col gap-2">
-                                {shareButtons.map((provider) => (
-                                    <Button
-                                        key={provider.provider}
-                                        variant="outline"
-                                        className="w-fit md:w-full justify-start gap-2 p-3"
-                                        onClick={() => provider.action()}
-                                    >
-                                        {provider.icon}
-
-                                        <span className="hidden md:block">
-                                            {provider.name}
-                                        </span>
-                                    </Button>
-                                ))}
-                            </div>
-                        </div>
-                    </aside>
+                    <PostShare
+                        url={postUrl}
+                        title={post.title}
+                        description={post.description}
+                    />
                 </div>
             </div>
         </main>
